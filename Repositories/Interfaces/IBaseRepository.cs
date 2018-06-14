@@ -1,9 +1,6 @@
 ﻿using DataAccess.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.Interfaces
 {
@@ -16,5 +13,7 @@ namespace Repositories.Interfaces
         int Create(TEntity item);
 
         int Update(TEntity item, Func<TEntity, bool> filter);
+
+        int Delete(int id);
     }
 }

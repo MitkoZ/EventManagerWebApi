@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace EventManager.ViewModels
+namespace EventManager.ViewModels.Home
 {
     public class LoginViewModel
     {

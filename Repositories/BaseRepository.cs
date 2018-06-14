@@ -63,5 +63,14 @@ namespace Repositories
             }
         }
 
+        public int Delete(int id)
+        {
+            TEntity dbItem = context.Set<TEntity>().Find(id);
+            if (dbItem != null)
+            {
+                context.Set<TEntity>().Remove(dbItem);
+            }
+            return context.SaveChanges();
+        }
     }
 }

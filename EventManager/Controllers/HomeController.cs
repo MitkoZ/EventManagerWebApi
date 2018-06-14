@@ -1,6 +1,6 @@
 ﻿using DataAccess.Models;
 using EventManager.Helpers;
-using EventManager.ViewModels;
+using EventManager.ViewModels.Home;
 using Repositories;
 using System;
 using System.Collections.Generic;

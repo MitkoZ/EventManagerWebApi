@@ -110,14 +110,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\EventController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\LoginUserSession.cs" />
     <Compile Include="Helpers\PasswordAttribute.cs" />
-    <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="ViewModels\RegisterViewModel.cs" />
+    <Compile Include="ViewModels\Event\EventViewModel.cs" />
+    <Compile Include="ViewModels\Home\LoginViewModel.cs" />
+    <Compile Include="ViewModels\Home\RegisterViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +135,8 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\_InfoMessages.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Event\CreateAnEvent.cshtml" />
+    <Content Include="Views\Event\GetEvents.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -151,6 +155,10 @@
     <ProjectReference Include="..\Repositories\Repositories.csproj">
       <Project>{95C2D450-6B75-4BAF-93E2-CA9B9129C6D7}</Project>
       <Name>Repositories</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{87F163A8-CC02-403F-B58C-A7C37539C395}</Project>
+      <Name>Services</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

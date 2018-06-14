@@ -8,6 +8,10 @@
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,6 +25,8 @@
                 @if (LoginUserSession.Current.IsAuthenticated)
                 {
                     @Html.ActionLink("Logout", "Logout", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("My Events", "GetMyEvents", "Event", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("All Events", "GetAllEvents", "Event", new { area = "" }, new { @class = "navbar-brand" })
                     <span class="navbar-text" style="color:yellow; font-size:20px">Hello @LoginUserSession.Current.Username </span>
                 }
                 else
@@ -43,8 +49,5 @@
             <p>&copy; @DateTime.Now.Year - EventManager</p>
         </footer>
     </div>
-
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
 </body>
 </html>

@@ -1,7 +1,7 @@
 ﻿using EventManager.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace EventManager.ViewModels
+namespace EventManager.ViewModels.Home
 {
     public class RegisterViewModel
     {

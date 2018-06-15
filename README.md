@@ -1,6 +1,6 @@
 # EventManager
 An ASP.NET MVC application for managing events
-
+## Setup Guide
 Clone the project `git clone https://github.com/MitkoZ/EventManager.git`.
 To start the project you will need Visual Studio (tested with 2017 version) and Microsoft SQL Server (tested with Microsoft SQL Server 2017 Express edition).
 Open the project solution file ("EventManager.sln").

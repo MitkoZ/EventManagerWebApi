@@ -2,16 +2,25 @@
 using EventManager.Helpers;
 using EventManager.ViewModels.Home;
 using Repositories;
-using System;
-using System.Collections.Generic;
+using Services;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EventManager.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : Controller
     {
+        #region Constructors and fields
+        private UserService userService;
+
+        public HomeController()
+        {
+            ModelStateWrapper modelStateWrapper = new ModelStateWrapper(ModelState);
+            this.userService = new UserService(modelStateWrapper, new UserRepository());
+        }
+        #endregion
+
         [HttpGet]
         public ActionResult Index()
         {
@@ -27,25 +36,26 @@ namespace EventManager.Controllers
         [HttpPost]
         public ActionResult Register(RegisterViewModel registerViewModel)
         {
-            if (!ModelState.IsValid)
+            if (!userService.PreValidate())
             {
                 return View(registerViewModel);
             }
 
-            UserRepository userRepository = new UserRepository();
-            User user = userRepository.GetAll(x => x.Username == registerViewModel.Username).FirstOrDefault();
+            User user = userService.GetAll(x => x.Username == registerViewModel.Username).FirstOrDefault();
             if (user != null)
             {
-                ModelState.AddModelError("", "A user with this username already exists!");
+                userService.AddValidationError("", "A user with this username already exists!");
                 return View(registerViewModel);
             }
 
-            User userDb = new User();
-            userDb.Username = registerViewModel.Username;
-            bool isSaved = userRepository.RegisterUser(userDb, registerViewModel.Password) > 0;
+            User userDb = new User
+            {
+                Username = registerViewModel.Username
+            };
+            bool isSaved = userService.RegisterUser(userDb, registerViewModel.Password) > 0;
             if (!isSaved)
             {
-                ModelState.AddModelError("", "Ooops something went wrong!");
+                userService.AddValidationError("", "Ooops something went wrong!");
                 return View();
             }
             TempData["SuccessMessage"] = "Registered successfully!";
@@ -62,15 +72,14 @@ namespace EventManager.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel loginViewModel)
         {
-            if (!ModelState.IsValid)
+            if (!userService.PreValidate())
             {
                 return View(loginViewModel);
             }
-            UserRepository userRepository = new UserRepository();
-            User userDb = userRepository.GetUserByNameAndPassword(loginViewModel.Username, loginViewModel.Password);
+            User userDb = userService.GetUserByNameAndPassword(loginViewModel.Username, loginViewModel.Password);
             if (userDb == null)
             {
-                ModelState.AddModelError("", "Invalid username and/or password");
+                userService.AddValidationError("", "Invalid username and/or password");
                 return View();
             }
             LoginUserSession.Current.SetCurrentUser(userDb.Id, userDb.Username);

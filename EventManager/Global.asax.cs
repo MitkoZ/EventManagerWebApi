@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using EventManager.Helpers;
 using System.Web.Mvc;
 using System.Web.Routing;
 
@@ -13,6 +10,8 @@ namespace EventManager
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            GlobalFilters.Filters.Add(new Helpers.AuthorizeAttribute());
+            GlobalFilters.Filters.Add(new ErrorHandlerAttribute());
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataAccess.Models;
+﻿using DataAccess;
+using DataAccess.Models;
 using Repositories.Helpers;
 using System.Linq;
 
@@ -6,6 +7,10 @@ namespace Repositories
 {
     public class UserRepository : BaseRepository<User>
     {
+        public UserRepository(EventManagerDbContext dbContext) : base(dbContext)
+        {
+        }
+
         public User GetUserByNameAndPassword(string username, string password)
         {
             User user = base.DBSet.FirstOrDefault(u => u.Username == username);

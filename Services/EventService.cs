@@ -1,13 +1,14 @@
 ﻿using DataAccess.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Repositories;
-using Services.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Services
 {
     public class EventService : BaseService<Event, EventRepository>
     {
-        public EventService(IValidationDictionary validationDictionary, EventRepository repository) : base(validationDictionary, repository)
+        public EventService(EventRepository repository) : base(repository)
         {
         }
 

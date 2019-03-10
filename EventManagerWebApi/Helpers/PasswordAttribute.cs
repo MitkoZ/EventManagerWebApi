@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Web.Mvc;
 
 namespace EventManager.Helpers
 {
     [AttributeUsage(AttributeTargets.Property)]
-    public sealed class PasswordAttribute : RequiredAttribute, IClientValidatable
+    public sealed class PasswordAttribute : RequiredAttribute
     {
         public PasswordAttribute()
         {
@@ -31,16 +30,5 @@ namespace EventManager.Helpers
 
             return result;
         }
-
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
-        {
-            return new ModelClientValidationRule[] {
-                new ModelClientValidationRule {
-                    ValidationType = "validatepassword",
-                    ErrorMessage = FormatErrorMessage(metadata.DisplayName)
-                }
-            };
-        }
-
     }
 }

@@ -10,22 +10,22 @@ namespace Services
         where TEntity : class, IEntity
         where Repository : BaseRepository<TEntity>
     {
-        private readonly IValidationDictionary validationDictionary;
+        public IValidationDictionary ValidationDictionary { get; set; }
         protected Repository repository;
-        public BaseService(IValidationDictionary validationDictionary, Repository repository)
+        public BaseService(Repository repository)
         {
-            this.validationDictionary = validationDictionary;
+            this.ValidationDictionary = ValidationDictionary;
             this.repository = repository;
         }
 
         public void AddValidationError(string key, string errorMessage)
         {
-            this.validationDictionary.AddError(key, errorMessage);
+            this.ValidationDictionary.AddError(key, errorMessage);
         }
 
         public bool PreValidate()
         {
-            if (!this.validationDictionary.IsValid)
+            if (!this.ValidationDictionary.IsValid)
             {
                 return false;
             }

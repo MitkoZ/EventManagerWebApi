@@ -1,9 +1,9 @@
 ﻿using DataAccess;
 using DataAccess.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using Repositories.Interfaces;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Linq;
 
 namespace Repositories
@@ -21,9 +21,9 @@ namespace Repositories
             }
         }
 
-        public BaseRepository()
+        public BaseRepository(EventManagerDbContext dbContext)
         {
-            this.context = new EventManagerDbContext();
+            this.context = dbContext;
         }
 
         public List<TEntity> GetAll(Func<TEntity, bool> filter = null)

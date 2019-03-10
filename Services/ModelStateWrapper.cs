@@ -1,29 +1,28 @@
-﻿using Services.Interfaces;
-using System.Web.Mvc;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Services.Interfaces;
 
 namespace Services
 {
     public class ModelStateWrapper : IValidationDictionary
     {
         #region Constructors and fields
-        private readonly ModelStateDictionary modelState;
-
+        public ModelStateDictionary ModelStateDictionary { get; private set; }
         public ModelStateWrapper(ModelStateDictionary modelState)
         {
-            this.modelState = modelState;
+            this.ModelStateDictionary = modelState;
         }
         #endregion
 
         public void AddError(string key, string errorMessage)
         {
-            this.modelState.AddModelError(key, errorMessage);
+            this.ModelStateDictionary.AddModelError(key, errorMessage);
         }
 
         public bool IsValid
         {
             get
             {
-                return this.modelState.IsValid;
+                return this.ModelStateDictionary.IsValid;
             }
         }
 

@@ -1,12 +1,14 @@
 ﻿using DataAccess.Models;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Repositories;
 using Services.Interfaces;
+using System.Collections.Generic;
 
 namespace Services
 {
     public class UserService : BaseService<User, UserRepository>
     {
-        public UserService(IValidationDictionary validationDictionary, UserRepository repository) : base(validationDictionary, repository)
+        public UserService(UserRepository repository) : base(repository)
         {
         }
 
@@ -19,6 +21,5 @@ namespace Services
         {
             return repository.GetUserByNameAndPassword(username, password);
         }
-
     }
 }

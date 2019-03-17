@@ -11,10 +11,8 @@ namespace EventManager.ViewModels.Event
         [Required]
         public string Location { get; set; }
         [Required]
-        [Display(Name = "Start Date Time")]
         public DateTime StartDateTime { get; set; }
         [Required]
-        [Display(Name = "End Date Time")]
         public DateTime EndDateTime { get; set; }
     }
 }

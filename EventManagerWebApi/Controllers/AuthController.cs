@@ -37,7 +37,8 @@ namespace EventManager.Controllers
             User user = userService.GetAll(x => x.Username == registerViewModel.Username).FirstOrDefault();
             if (user != null)
             {
-                return BadRequest("A user with this username already exists!");
+                userService.AddValidationError("username", "A user with this username already exists!");
+                return BadRequest(this.modelStateWrapper.ModelStateDictionary);
             }
 
             User userDb = new User

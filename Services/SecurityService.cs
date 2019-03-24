@@ -19,11 +19,12 @@ namespace Services
         {
             this.configuration = configuration;
         }
-        
+
         public string GenerateToken(User user)
         {
             var claims = new List<Claim>(){
-                new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, user.Id.ToString()),
+                new Claim(JwtRegisteredClaimNames.NameId, user.Username)
             };
 
 

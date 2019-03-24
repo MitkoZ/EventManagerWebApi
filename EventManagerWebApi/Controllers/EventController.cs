@@ -87,6 +87,22 @@ namespace EventManager.Controllers
             return Ok(eventViewModels);
         }
 
+        [HttpGet("Get/{id}")]
+        public ActionResult<EventViewModel> Get(int id)
+        {
+            User currentUser = userService.GetAll(x => x.Id == securityService.GetUserId(HttpContext)).FirstOrDefault();
+            Event eventDb = currentUser.Events.FirstOrDefault(x => x.Id == id);
+            EventViewModel eventViewModel = new EventViewModel
+            {
+                Id = eventDb.Id,
+                Name = eventDb.Name,
+                Location = eventDb.Location,
+                StartDateTime = eventDb.StartDateTime,
+                EndDateTime = eventDb.EndDateTime
+            };
+            return Ok(eventViewModel);
+        }
+
         [HttpPut("Edit")]
         public ActionResult<EventViewModel> Edit(EventViewModel eventViewModel)
         {
@@ -119,7 +135,7 @@ namespace EventManager.Controllers
             return Ok(eventViewModel);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("Delete/{id}")]
         public ActionResult Delete(int id)
         {
             User currentUserDb = userService.GetAll(x => x.Id == securityService.GetUserId(HttpContext)).FirstOrDefault();

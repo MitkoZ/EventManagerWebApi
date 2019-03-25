@@ -39,7 +39,7 @@ namespace EventManager.Controllers
                 return BadRequest(this.modelStateWrapper.ModelStateDictionary);
             }
 
-            Event eventDb = eventService.GetAll(x => x.Name == createAnEventViewModel.Name).FirstOrDefault();
+            Event eventDb = eventService.GetAll(x => x.Name == createAnEventViewModel.Name && x.UserId == securityService.GetUserId(HttpContext)).FirstOrDefault();
             if (eventDb != null)
             {
                 eventService.AddValidationError("eventName", "An event with this name already exists!");
@@ -151,23 +151,5 @@ namespace EventManager.Controllers
             }
             return Ok();
         }
-
-        [HttpGet("GetAllEvents")]
-        public ActionResult<EventViewModel> GetAllEvents()
-        {
-            List<Event> eventsDb = eventService.GetAll();
-            List<EventViewModel> eventViewModels = new List<EventViewModel>();
-            eventsDb.ForEach(x => eventViewModels.Add(
-                    new EventViewModel
-                    {
-                        Name = x.Name,
-                        Location = x.Location,
-                        StartDateTime = x.StartDateTime,
-                        EndDateTime = x.EndDateTime
-                    })
-                );
-            return Ok(eventViewModels);
-        }
-
     }
 }
